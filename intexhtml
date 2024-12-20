@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Virtual e Componentes Lenz</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F4F5FB;
+            color: #000812;
+            margin: 20px;
+            line-height: 1.6;
+        }
+
+        h1, h2 {
+            font-weight: bold;
+            color: #CA3084;
+        }
+
+        .container {
+            margin-bottom: 40px;
+        }
+
+        /* Botão */
+        button {
+            background-color: #CA3084;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #A52C6B;
+        }
+
+        #botaoAlternarCarrinho {
+            margin-bottom: 20px;
+        }
+
+        /* Campo de texto */
+        input[type="text"] {
+            border: 1px solid #D1D5DB;
+            border-radius: 4px;
+            padding: 10px;
+            width: 300px;
+            margin: 5px 0;
+        }
+
+        input[type="text"]:hover {
+            border: 1px solid #A52C6B;
+        }
+
+        input[type="text"]:focus {
+            border: 2px solid #CA3084;
+        }
+
+        /* Checkbox */
+        .checkbox label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox input {
+            margin-right: 10px;
+        }
+
+        .checkbox .hover {
+            color: #A52C6B;
+        }
+
+        .checkbox .selected {
+            color: #CA3084;
+        }
+
+        /* Estilo do carrinho */
+        aside#carrinho {
+            background-color: #FFFFFF;
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        aside#carrinho h2 {
+            font-size: 20px;
+        }
+
+        /* Produtos */
+        .produto {
+            margin-bottom: 20px;
+        }
+
+        .produto button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Loja Virtual</h1>
+    </header>
+
+    <button id="botaoAlternarCarrinho" onclick="alternarCarrinho()">
+        <i class="fas fa-shopping-cart"></i> Alternar Carrinho (<span id="contagemCarrinho">0</span> itens)
+    </button>
+
+    <aside id="carrinho">
+        <h2><i class="fas fa-cart-arrow-down"></i> Carrinho de Compras</h2>
+        <ul id="itensCarrinho">
+            <!-- Os itens do carrinho aparecerão aqui -->
+        </ul>
+        <button onclick="limparCarrinho()">
+            <i class="fas fa-trash-alt"></i> Limpar Carrinho
+        </button>
+    </aside>
+
+    <section class="container">
+        <h2>Produtos</h2>
+        <div class="produto">
+            <span>Produto 1 - R$50,00</span>
+            <p>Descrição: Um vestido lindo para todas as ocasiões.</p>
+            <button onclick="adicionarAoCarrinho('Produto 1 - R$50,00')">
+                <i class="fas fa-cart-plus"></i> Adicionar ao Carrinho
+            </button>
+        </div>
+        <div class="produto">
+            <span>Produto 2 - R$70,00</span>
+            <p>Descrição: Conjunto perfeito para um look descontraído.</p>
+            <button onclick="adicionarAoCarrinho('Produto 2 - R$70,00')">
+                <i class="fas fa-cart-plus"></i> Adicionar ao Carrinho
+            </button>
+        </div>
+        <div class="produto">
+            <span>Produto 3 - R$100,00</span>
+            <p>Descrição: Elegância e conforto para todas as estações.</p>
+            <button onclick="adicionarAoCarrinho('Produto 3 - R$100,00')">
+                <i class="fas fa-cart-plus"></i> Adicionar ao Carrinho
+            </button>
+        </div>
+    </section>
+
+    <section class="container">
+        <h1>Componentes</h1>
+
+        <!-- Botão -->
+        <div class="componente">
+            <h2>Button</h2>
+            <button>Adicionar item</button>
+            <button class="hover">Adicionar item (Hover)</button>
+        </div>
+
+        <!-- Campo de Texto -->
+        <div class="componente">
+            <h2>Text Field</h2>
+            <input type="text" placeholder="Adicione um novo item" class="default">
+            <input type="text" placeholder="Adicione um novo item (Hover)">
+            <input type="text" placeholder="Adicione um novo item (Focus)" autofocus>
+        </div>
+
+        <!-- Checkbox -->
+        <div class="componente">
+            <h2>Checkbox</h2>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox">
+                    Default
+                </label>
+                <label class="hover">
+                    <input type="checkbox">
+                    Hover
+                </label>
+                <label class="selected">
+                    <input type="checkbox" checked>
+                    Selected
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Funções de exemplo
+        function alternarCarrinho() {
+            const carrinho = document.getElementById('carrinho');
+            carrinho.style.display = carrinho.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function limparCarrinho() {
+            const itensCarrinho = document.getElementById('itensCarrinho');
+            itensCarrinho.innerHTML = '';
+            document.getElementById('contagemCarrinho').textContent = '0';
+        }
+
+        function adicionarAoCarrinho(produto) {
+            const itensCarrinho = document.getElementById('itensCarrinho');
+            const novoItem = document.createElement('li');
+            novoItem.textContent = produto;
+            itensCarrinho.appendChild(novoItem);
+            const contagem = itensCarrinho.children.length;
+            document.getElementById('contagemCarrinho').textContent = contagem;
+        }
+    </script>
+</body>
+</html>
